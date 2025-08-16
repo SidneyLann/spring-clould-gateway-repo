@@ -1,0 +1,54 @@
+package com.blockchain.gateway.component;
+
+import java.net.URI;
+
+import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.core.Ordered;
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
+
+import reactor.core.publisher.Mono;
+
+@Component
+public class HttpsToHttpFilter implements GlobalFilter, Ordered {
+
+  private static final int HTTPS_TO_HTTP_FILTER_ORDER = 10099;
+
+  @Override
+  public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+    URI originalUri = exchange.getRequest().getURI();
+    ServerHttpRequest request = exchange.getRequest();
+    ServerHttpRequest.Builder mutate = request.mutate();
+    String forwardedUri = request.getURI().toString();
+    
+    if (forwardedUri != null && forwardedUri.startsWith("https")) {
+      try {
+        URI mutatedUri = new URI("http", originalUri.getUserInfo(), originalUri.getHost(), originalUri.getPort(), originalUri.getPath(), originalUri.getQuery(), originalUri.getFragment());
+        mutate.uri(mutatedUri);
+      } catch (Exception e) {
+        throw new IllegalStateException(e.getMessage(), e);
+      }
+    } else if (forwardedUri != null && forwardedUri.startsWith("wss")) {
+      try {
+        URI mutatedUri = new URI("ws", originalUri.getUserInfo(), originalUri.getHost(), originalUri.getPort(), originalUri.getPath(), originalUri.getQuery(), originalUri.getFragment());
+        mutate.uri(mutatedUri);
+      } catch (Exception e) {
+        throw new IllegalStateException(e.getMessage(), e);
+      }
+    }
+
+    if (forwardedUri != null && (forwardedUri.endsWith(".js") || forwardedUri.endsWith(".jpg") || forwardedUri.endsWith(".png"))) {
+      //exchange.getResponse().getHeaders().add("Cache-Control", "max-age=8640000");
+    }
+    
+    ServerHttpRequest build = mutate.build();
+    return chain.filter(exchange.mutate().request(build).build());
+  }
+
+  @Override
+  public int getOrder() {
+    return HTTPS_TO_HTTP_FILTER_ORDER;
+  }
+}
