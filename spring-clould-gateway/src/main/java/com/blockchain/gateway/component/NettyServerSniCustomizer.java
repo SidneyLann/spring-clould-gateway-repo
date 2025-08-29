@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.blockchain.gateway.handler.SniSslServerCustomizer;
 
-@Component
+//@Component
 public class NettyServerSniCustomizer implements WebServerFactoryCustomizer<NettyReactiveWebServerFactory> {
   private static final String KEY_STORE = ".pc168.com.p12";
   @Value("${server.ssl.folder}")

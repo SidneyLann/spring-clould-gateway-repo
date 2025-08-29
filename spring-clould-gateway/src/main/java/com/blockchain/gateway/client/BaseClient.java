@@ -18,7 +18,7 @@ public class BaseClient {
 
   @PostConstruct
   private void createClient() {
-    String memberSysHost = "/d/dev".equals(rootFolder) ? "of.pc168.com" : "prdb";
+    String memberSysHost =  "localhost";
     webClient = WebClient.create("http://" + memberSysHost + ":" + memberSysPort);
   }
 

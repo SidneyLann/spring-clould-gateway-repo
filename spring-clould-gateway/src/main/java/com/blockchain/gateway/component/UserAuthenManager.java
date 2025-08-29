@@ -4,12 +4,6 @@ import org.springframework.security.authentication.ReactiveAuthenticationManager
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.blockchain.common.base.BizzException;
-import com.blockchain.common.util.StrUtil;
-import com.blockchain.gateway.common.SecurityUser;
-import com.blockchain.gateway.service.SecurityService;
-
-import jakarta.annotation.Resource;
 import reactor.core.publisher.Mono;
 
 @Component

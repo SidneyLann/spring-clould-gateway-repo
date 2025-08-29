@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.blockchain.common.base.BizzException;
 import com.blockchain.common.base.OpResult;
 import com.blockchain.common.util.DefaultPermissionDto;
-import com.blockchain.common.util.FasonUtil;
 import com.blockchain.common.util.JsonUtil;
 import com.blockchain.gateway.client.MemberClient;
 import com.blockchain.gateway.common.SecurityUser;
@@ -33,12 +32,6 @@ public class SecurityService {
 		LOG.debug("loginName 1: {}", loginName);
 		LOG.debug("weId 1: {}", weId);
 		flxResult = memberClient.login(loginName, weId, password);
-//		OpResult result = new OpResult();
-//		if("member123".equals(loginName)) {
-//			SecurityUser securityUser=new SecurityUser ();
-//			securityUser.set
-//		}
-//		flxResult = Mono.just(result);
 
 		return flxResult.flatMap(opResult -> {
 			if (opResult.getBody() == null) {
@@ -50,7 +43,7 @@ public class SecurityService {
 			}
 
 			LOG.debug("member: {}", opResult.getBody());
-			SecurityUser securityUser = FasonUtil.obj2Obj(opResult.getBody(), SecurityUser.class);
+			SecurityUser securityUser = JsonUtil.object2Object(opResult.getBody(), SecurityUser.class);
 
 			return Mono.just(securityUser);
 		}).flatMap(securityUser -> {
