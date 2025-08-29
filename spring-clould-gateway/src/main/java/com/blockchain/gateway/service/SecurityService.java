@@ -46,25 +46,25 @@ public class SecurityService {
 			SecurityUser securityUser = JsonUtil.object2Object(opResult.getBody(), SecurityUser.class);
 
 			return Mono.just(securityUser);
-		}).flatMap(securityUser -> {
-			LOG.debug("securityUser.getId() 2: {}", securityUser.getId());
-			Mono<OpResult> memberPermissionMono = memberClient.searchPermission4Member(securityUser.getId());
-			return memberPermissionMono.map((memberPermissionResult) -> {
-				List<DefaultPermissionDto> defaultPermissionDtos = JsonUtil
-						.json2List(memberPermissionResult.getBody().toString(), DefaultPermissionDto.class);
-				for (DefaultPermissionDto dto : defaultPermissionDtos)
-					authorities.add(dto.getPermissionCode());
-
-				return securityUser;
-			});
-		}).flatMap(securityUser -> {
-			String userId = securityUser.getId();
-			String orgTypeStr = securityUser.getOrgType();
-			short orgType = Short.valueOf(orgTypeStr);
-			LOG.debug("userId 3: {}", userId);
-			LOG.debug("orgType 3: {}", orgType);
-
-			return Mono.just(securityUser);
+//		}).flatMap(securityUser -> {
+//			LOG.debug("securityUser.getId() 2: {}", securityUser.getId());
+//			Mono<OpResult> memberPermissionMono = memberClient.searchPermission4Member(securityUser.getId());
+//			return memberPermissionMono.map((memberPermissionResult) -> {
+//				List<DefaultPermissionDto> defaultPermissionDtos = JsonUtil
+//						.json2List(memberPermissionResult.getBody().toString(), DefaultPermissionDto.class);
+//				for (DefaultPermissionDto dto : defaultPermissionDtos)
+//					authorities.add(dto.getPermissionCode());
+//
+//				return securityUser;
+//			});
+//		}).flatMap(securityUser -> {
+//			String userId = securityUser.getId();
+//			String orgTypeStr = securityUser.getOrgType();
+//			short orgType = Short.valueOf(orgTypeStr);
+//			LOG.debug("userId 3: {}", userId);
+//			LOG.debug("orgType 3: {}", orgType);
+//
+//			return Mono.just(securityUser);
 		}).flatMap(securityUser -> {
 			LOG.debug("securityUser.getNickName() 5: {}", securityUser.getNickName());
 

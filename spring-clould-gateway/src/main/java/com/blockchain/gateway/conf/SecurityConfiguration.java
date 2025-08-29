@@ -57,7 +57,7 @@ public class SecurityConfiguration {
 	private String secret;
 	// Add all Swagger endpoints to public routes
 	private final String[] publicRoutes = { "/", "/swagger-ui.html", "/webjars/**", "/v3/api-docs/**", "/swagger-ui/**",
-			"/swagger-ui/index.html", "/swagger-resources/**", "/swagger-config", "/sec/login" };
+			"/swagger-ui/index.html", "/swagger-resources/**", "/swagger-config", "/sec/login", "/member/pub/init/search"};
 
 	// List of allowed origins for CORS (add your production domains here)
 	private final List<String> allowedOrigins = Arrays.asList("https://sh1.koreacentral.cloudapp.azure.com",
