@@ -60,8 +60,8 @@ public class SecurityConfiguration {
 			"/swagger-ui/index.html", "/swagger-resources/**", "/swagger-config", "/sec/login", "/member/pub/init/search"};
 
 	// List of allowed origins for CORS (add your production domains here)
-	private final List<String> allowedOrigins = Arrays.asList("https://sh1.koreacentral.cloudapp.azure.com",
-			"https://www.azure.com");
+	private final List<String> allowedOrigins = Arrays.asList("https://ec2-13-229-223-170.ap-southeast-1.compute.amazonaws.com",
+			"https://www.amazonaws.com");
 
 	@Bean
 	public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http,
