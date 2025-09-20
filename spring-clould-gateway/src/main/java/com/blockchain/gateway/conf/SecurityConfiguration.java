@@ -56,7 +56,7 @@ public class SecurityConfiguration {
 	@Value("${jwt.secret}")
 	private String secret;
 	// Add all Swagger endpoints to public routes
-	private final String[] publicRoutes = { "/", "/favicon.ico", "/swagger-ui.html", "/webjars/**", "/v3/api-docs/**", "/swagger-ui/**",
+	private final String[] publicRoutes = { "/", "/favicon.ico", "/fe/**", "/be/**", "/swagger-ui.html", "/webjars/**", "/v3/api-docs/**", "/swagger-ui/**",
 			"/swagger-ui/index.html", "/swagger-resources/**", "/swagger-config", "/sec/login", "/member/pub/init/search"};
 
 	// List of allowed origins for CORS (add your production domains here)
