@@ -34,11 +34,11 @@ public class SecurityService {
 		flxResult = memberClient.login(loginName, weId, password);
 
 		return flxResult.flatMap(opResult -> {
-			if (opResult.getBody() == null) {
-				LOG.info("can't find member, msg: {}", opResult.getMessage());
+			if (opResult.getBody() == null || opResult.getCode() == OpResult.CODE_COMM_NULL_EXCEPTION) {
+				LOG.info("can't find member, code {} msg: {}", opResult.getCode(), opResult.getMessage());
 				return Mono.error(new BizzException(OpResult.CODE_COMM_GRANT_INVALID_USER));
 			} else if (opResult.getCode() != OpResult.CODE_COMM_0_SUCCESS) {
-				LOG.info("exception find member, msg: {}", opResult.getMessage());
+				LOG.info("exception find member, code {} msg: {}", opResult.getCode(), opResult.getMessage());
 				return Mono.error(new BizzException(OpResult.CODE_COMM_EXCEPTION));
 			}
 
