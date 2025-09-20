@@ -56,12 +56,13 @@ public class SecurityConfiguration {
 	@Value("${jwt.secret}")
 	private String secret;
 	// Add all Swagger endpoints to public routes
-	private final String[] publicRoutes = { "/", "/favicon.ico", "/fe/**", "/be/**", "/swagger-ui.html", "/webjars/**", "/v3/api-docs/**", "/swagger-ui/**",
-			"/swagger-ui/index.html", "/swagger-resources/**", "/swagger-config", "/sec/login", "/member/pub/init/search"};
+	private final String[] publicRoutes = { "/", "/favicon.ico", "/fe/**", "/be/**", "/swagger-ui.html", "/webjars/**",
+			"/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui/index.html", "/swagger-resources/**", "/swagger-config",
+			"/sec/login", "/member/pub/init/search" };
 
 	// List of allowed origins for CORS (add your production domains here)
-	private final List<String> allowedOrigins = Arrays.asList("https://ec2-13-229-223-170.ap-southeast-1.compute.amazonaws.com",
-			"https://www.amazonaws.com");
+	private final List<String> allowedOrigins = Arrays
+			.asList("https://ec2-13-229-223-170.ap-southeast-1.compute.amazonaws.com", "https://www.amazonaws.com");
 
 	@Bean
 	public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http,
@@ -154,8 +155,8 @@ public class SecurityConfiguration {
 		return new BCryptPasswordEncoder(11);
 	}
 
-	//@Bean
-	//@Order(Ordered.LOWEST_PRECEDENCE)
+	// @Bean
+	// @Order(Ordered.LOWEST_PRECEDENCE)
 	WebFilter firtWebFilter() {
 		return (exchange, chain) -> {
 			// 只处理 POST 请求且 Content-Type 为 application/x-www-form-urlencoded
